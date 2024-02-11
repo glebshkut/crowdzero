@@ -1,7 +1,7 @@
 {
   "name": "crowdzero",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.20.1",
-    "connectkit": "^1.7.1",
+    "connectkit": "1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
-    "viem": "^2.7.8",
-    "wagmi": "^2.5.6"
+    "viem": "^1.21.4",
+    "wagmi": "^1.4.13"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
