@@ -1,26 +1,42 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import './App.css';
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import NavBar from "@/components/widgets/NavBar";
 import Landing from "@/components/pages/Landing";
-import App from "@/components/pages/App";
+import Projects from "@/components/pages/Projects";
+import { Routes } from "./constants/routes";
 
 export default function Index() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Landing />,
-    },
-    {
-      path: "/app",
-      element: <App />
-    },
+      element: (
+        <Layout />
+      ),
+      children: [
+        {
+          path: Routes.HOME,
+          element: <Landing />,
+        },
+        {
+          path: Routes.PROJECTS,
+          element: <Projects />
+        },
+        {
+          path: Routes.CREATE_PROJECT,
+          element: <div>Create Project</div>
+        }]
+    }
   ]);
 
   return (
-    <div className="min-h-screen w-full bg-background">
+    <RouterProvider router={router} />
+  )
+}
+
+function Layout() {
+  return (
+    <div className="min-h-screen w-full bg-background text-info">
       <NavBar />
-      <RouterProvider router={router} />
+      <Outlet />
     </div>
   )
 }

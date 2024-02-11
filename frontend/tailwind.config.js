@@ -10,7 +10,10 @@ export default {
         "primary-gradient": "var(--gradient-primary)",
       },
       colors: {
-        primary: "#FF852C",
+        primary: "#F7BA1E",
+        info: "#FAFAFA",
+        secondary: "#A3A5D3",
+        "gradient-button": "#222222",
       },
       backgroundColor: {
         background: "#222222",
@@ -23,7 +26,14 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#FF852C",
+          primary: "#F7BA1E",
+          ".btn-primary": {
+            color: "#2D2D37",
+          },
+          ".btn": {
+            border: "none",
+          },
+
           secondary: "#f6d860",
           accent: "#37cdbe",
           neutral: "#3d4451",

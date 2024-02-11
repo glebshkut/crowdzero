@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,4 +10,13 @@
     #1790FF,
     #75CEFD
   );
+  --navbar-height: 88px;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.screen-height {
+  height: calc(100vh - var(--navbar-height));
 }
