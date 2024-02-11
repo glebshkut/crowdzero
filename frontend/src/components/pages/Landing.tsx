@@ -6,7 +6,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       <div className="flex flex-col gap-10 justify-center items-center screen-height">
-        <h1 className="text-7xl text-info">
+        <h1 className="text-7xl text-info font-bold">
           Where crowds get funded.
         </h1>
         <h4 className="text-3xl text-secondary">
