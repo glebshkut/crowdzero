@@ -11,16 +11,19 @@ export default {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "primary-gradient": "var(--gradient-primary)",
+        "primary-gradient-reverted": "var(--gradient-primary-reverted)",
       },
       colors: {
         primary: "#F7BA1E",
         info: "#FAFAFA",
         secondary: "#A3A5D3",
+        action: "#FF852C",
         "gradient-button": "#222222",
       },
       backgroundColor: {
         background: "#222222",
         "secondary-background": "#282828",
+        dark: "#2D2D37",
       },
     },
   },
@@ -35,6 +38,7 @@ export default {
           },
           ".btn": {
             border: "none",
+            fontWeight: 700,
           },
 
           secondary: "#f6d860",
@@ -43,7 +47,7 @@ export default {
           "base-100": "#ffffff",
 
           "--rounded-box": "1rem",
-          "--rounded-btn": "0.5rem",
+          "--rounded-btn": "16px",
           "--rounded-badge": "1.9rem",
           "—-animation-btn": "0.25s",
           "—-animation-input": "0.2s",

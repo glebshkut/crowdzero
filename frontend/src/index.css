@@ -10,6 +10,10 @@
     #1790FF,
     #75CEFD
   );
+  --gradient-primary-reverted: linear-gradient(
+    #75CEFD,
+    #1790FF
+  );
   --navbar-height: 88px;
 }
 
@@ -19,4 +23,8 @@ body {
 
 .screen-height {
   height: calc(100vh - var(--navbar-height));
+}
+
+.min-screen-height {
+  min-height: calc(100vh - var(--navbar-height));
 }

@@ -3,7 +3,7 @@ import NavBar from "@/components/widgets/NavBar";
 import Landing from "@/components/pages/Landing";
 import Projects from "@/components/pages/Projects";
 import { Routes } from "@/constants/routes";
-import ProjectDetails from "@/components/pages/ProjectDetails";
+import { ProjectDetails } from "@/components/pages/ProjectDetails";
 
 export default function Index() {
 
