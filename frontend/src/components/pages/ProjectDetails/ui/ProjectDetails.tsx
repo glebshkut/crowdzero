@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import CommunityInfo from "@/components/shared/CommunityInfo";
 import RaisedBar from "@/components/shared/RaisedBar";
 import stylePrice from "@/components/shared/calculations/stylePrice";
+import classNames from "classnames";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
   const { projectId } = useParams<{ projectId: string }>();
 
   useEffect(() => {
@@ -67,14 +70,26 @@ export default function ProjectDetails() {
                 {description}
               </span>
             </div>
-            <div className="flex items-center gap-6">
-              <button className="btn btn-primary">
+            {isVerified ? (
+              <button className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit">
+                Fund with <img src="/assets/crowdzero-logo.png" className="relative bottom-1" width={143} height={31} alt="crowdzero logo" />
+              </button>
+            ) : (<div className="flex items-center gap-6">
+              <button className="btn btn-primary" onClick={() => {
+                setIsButtonLoading(true)
+                setTimeout(() => {
+                  setIsVerified(true)
+                  setIsButtonLoading(false)
+                }, 2000)
+              }}>
+                {isButtonLoading && <span className="loading loading-spinner" />}
                 Verify and Join!
               </button>
               <span className="text-primary text-sm">
                 Join this community quick and easy and anonymously!
               </span>
             </div>
+            )}
             <div className="bg-secondary-background rounded-2xl p-4 gap-2 flex flex-col">
               <span className="font-bold">Fundrasiing Status</span>
               <RaisedBar raised={raised} goal={goal} />

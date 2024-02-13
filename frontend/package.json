@@ -12,6 +12,7 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.0.15",
     "@tanstack/react-query": "^5.20.1",
+    "classnames": "^2.5.1",
     "connectkit": "1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
