@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import CommunityInfo from "@/components/shared/CommunityInfo";
 import RaisedBar from "@/components/shared/RaisedBar";
 import stylePrice from "@/components/shared/calculations/stylePrice";
-import classNames from "classnames";
+import { XCircle } from "@phosphor-icons/react";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [amount, setAmount] = useState<string>("40");
   const { projectId } = useParams<{ projectId: string }>();
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export default function ProjectDetails() {
   } = project;
 
   return (
-    <div className="h-full">
+    <div className="h-full drawer drawer-end overflow-x-hidden">
+      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="mt-16 ml-40">
         <h1 className="font-bold text-3xl">
           Fund Project
@@ -71,9 +73,9 @@ export default function ProjectDetails() {
               </span>
             </div>
             {isVerified ? (
-              <button className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit">
+              <label htmlFor="my-drawer" className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit drawer-button">
                 Fund with <img src="/assets/crowdzero-logo.png" className="relative bottom-1" width={143} height={31} alt="crowdzero logo" />
-              </button>
+              </label>
             ) : (<div className="flex items-center gap-6">
               <button className="btn btn-primary" onClick={() => {
                 setIsButtonLoading(true)
@@ -93,6 +95,30 @@ export default function ProjectDetails() {
             <div className="bg-secondary-background rounded-2xl p-4 gap-2 flex flex-col">
               <span className="font-bold">Fundrasiing Status</span>
               <RaisedBar raised={raised} goal={goal} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="drawer-side overflow-x-hidden">
+        <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay blur-3xl"></label>
+        <div className="w-1/3 h-[90%] my-auto">
+          <div className="relative flex flex-col justify-center items-start gap-8 w-[95%] bg-dark h-full p-5 rounded-2xl">
+            <label htmlFor="my-drawer" className="absolute top-5 right-5">
+              <XCircle size={32} color="#1790FF" />
+            </label>
+
+            <div className="flex flex-col justify-start gap-4">
+              <span className="rounded-full bg-blue px-4 py-2 w-fit">You are Verified!</span>
+              <span className="text-info">Choose how much you want to fund this project</span>
+            </div>
+            <div>
+              <div className="flex justify-between">
+                <span className="text-secondary">$10</span>
+                <span className="text-secondary">{stylePrice(goal - raised)}</span>
+              </div>
+              <input type="range" min={0} max={`${2528.44 * (goal - raised)}`} value={amount} className="range range-primary" />
+              <span className="text-secondary">Amount shown in USD</span>
+              <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} className="input input-bordered border-info bg-secondary-background rounded-lg w-4/5" />
             </div>
           </div>
         </div>

@@ -44,7 +44,7 @@ export default function Index() {
 
 function Layout() {
   return (
-    <div className="min-h-screen w-full bg-background text-info">
+    <div className="min-h-screen w-full bg-background text-info !overflow-x-hidden">
       <NavBar />
       <Outlet />
     </div>

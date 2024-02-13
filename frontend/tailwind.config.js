@@ -19,6 +19,7 @@ export default {
         secondary: "#A3A5D3",
         action: "#FF852C",
         "gradient-button": "#222222",
+        blue: "#1790FF",
       },
       backgroundColor: {
         background: "#222222",
