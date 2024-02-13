@@ -80,8 +80,8 @@ contract CrowdZeroChild {
 
     // A function that allows receiving donations while the contract is active
     function donate(uint256 _amount) public isActive {
-        // Require that the sent value is greater than zero
-        require(_amount > 0, "Sent value must be greater than zero");
+        // Require that the sent value is equal or greater than 10
+        require(_amount >0.0000, "Sent value must equal or greater than 10");
 
         // Transfer the tokens from the sender to the contract
         token.transferFrom(msg.sender, address(this), _amount);
