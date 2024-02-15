@@ -24,6 +24,7 @@ export default {
       backgroundColor: {
         background: "#222222",
         "secondary-background": "#282828",
+        "placeholder-background": "#425C6F",
         dark: "#2D2D37",
       },
     },

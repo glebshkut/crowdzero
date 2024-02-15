@@ -28,3 +28,12 @@ body {
 .min-screen-height {
   min-height: calc(100vh - var(--navbar-height));
 }
+
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: none;
+}
+
+input[type="range"]::-moz-range-track {
+  background: none;
+}

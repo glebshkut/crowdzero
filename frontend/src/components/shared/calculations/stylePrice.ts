@@ -1,3 +1,3 @@
-export default function stylePrice(price: number): string {
-  return "$" + (price * 2528.44).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export default function stylePrice(price: number, isUSD?: boolean, noDecimal?: boolean): string {
+  return "$" + (price * (isUSD ? 1 : 2528.44)).toFixed(noDecimal ? 0 : 2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
