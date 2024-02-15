@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { ProjectInterface } from "../lib/type";
 import Drawer from "./Drawer";
+import ProcessingModal from "./ProcessingModal";
+import { ModalStage } from "../lib/modal";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [modalStage, setModalStage] = useState<ModalStage | null>(null);
   const [amount, setAmount] = useState<number>(10);
   const { projectId } = useParams<{ projectId: string }>();
 
@@ -32,6 +35,18 @@ export default function ProjectDetails() {
 
   const handleInputChange = (e: { target: { value: string; }; }) => {
     setAmount(Number(e.target.value));
+  }
+
+  const handleProcessing = () => {
+    setModalStage(ModalStage.Approve);
+    const modalElement = document.getElementById('my_modal_1') as HTMLDialogElement;
+    modalElement.showModal();
+    setTimeout(() => {
+      setModalStage(ModalStage.Processing);
+      setTimeout(() => {
+        setModalStage(ModalStage.Complete);
+      }, 2000);
+    }, 2000);
   }
 
   const {
@@ -102,7 +117,8 @@ export default function ProjectDetails() {
           </div>
         </div>
       </div>
-      <Drawer amount={amount} handleInputChange={handleInputChange} project={project} />
+      <Drawer amount={amount} handleInputChange={handleInputChange} project={project} handleSubmit={handleProcessing} />
+      <ProcessingModal stage={modalStage} />
     </div>
   );
 }

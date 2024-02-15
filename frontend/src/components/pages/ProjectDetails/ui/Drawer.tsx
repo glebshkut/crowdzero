@@ -4,7 +4,8 @@ import { CheckCircle, XCircle } from "@phosphor-icons/react";
 export default function Drawer({
   amount,
   handleInputChange,
-  project
+  project,
+  handleSubmit
 }: {
   amount: number;
   handleInputChange: (e: { target: { value: string; }; }) => void;
@@ -12,6 +13,7 @@ export default function Drawer({
     raised: number;
     goal: number;
   };
+    handleSubmit: () => void;
 }) {
   const { raised, goal } = project;
 
@@ -55,7 +57,7 @@ export default function Drawer({
             <span className="text-5xl bg-primary-gradient-reverted text-transparent bg-clip-text font-black">
               {stylePrice(amount + amount * 0.01, true)}
             </span>
-            <button className="mt-2 btn bg-primary-gradient text-info text-md font-bold rounded-lg w-fit drawer-button">
+            <button className="mt-2 btn bg-primary-gradient text-info text-md font-bold rounded-lg w-fit drawer-button" onClick={handleSubmit}>
               <CheckCircle color="#222222" size={20} />
               Confirm
             </button>
