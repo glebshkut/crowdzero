@@ -86,8 +86,6 @@ pragma solidity ^0.8.9;
         campaign.raised += amount;
         donations[campaign.creator] += amount;
     }
-
-    // Function to get the total amount raised for a campaign
     function withdraw(uint256 campaignId) external{
         require(campaignId < campaigns.length, "Invalid campaign ID");
         require(getCreator(campaignId) == msg.sender, "caller not the creator of the campaign");
@@ -96,11 +94,8 @@ pragma solidity ^0.8.9;
         donations[msg.sender] = 0;
         (bool ok, ) = payable(msg.sender).call{value: amount}("");
         require(ok);
-        
     }
 
-    // Function to get the donation amount for a specific stealth address in a campaign
-    
     function getCreator(uint256 campaignId) internal view returns(address) {
      return campaigns[campaignId].creator;
    }
