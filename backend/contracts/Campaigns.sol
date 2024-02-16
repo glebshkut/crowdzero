@@ -35,6 +35,7 @@ pragma solidity ^0.8.9;
         uint256 goal;
         uint256 raised;
         string name;
+        string image;
         string description;
         bool complete;
         uint256 deadline;
@@ -52,13 +53,14 @@ pragma solidity ^0.8.9;
     }
 
     // Function to create a new campaign
-    function createCampaign(uint256 _goal, string memory _name, string memory _description) public {
+    function createCampaign(uint256 _goal, string memory _name, string memory _image, string memory _description) public {
         Campaign memory newCampaign = Campaign({
          campaignId: id,
          creator: msg.sender,
          goal: _goal,
          raised: 0,
          name: _name,
+         image: _image,
          description: _description,
          complete: false,
          deadline: block.timestamp + 7 days
