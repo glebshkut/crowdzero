@@ -3,22 +3,21 @@ import { ethers } from "hardhat";
 async function main() {
   const [deployer] = await ethers.getSigners();
 
+  const Verifier = await ethers.getContractFactory("Verifier");
+  const verifier = await Verifier.deploy();
+  console.log(`Verifier address: ${verifier.address}`)
+
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await ethers.provider.getBalance(deployer.address)).toString());
 
-  const CrowdZero = await ethers.getContractFactory("CrowdZero");
-  const crowdZero = await CrowdZero.deploy("0x1234567890123456789012345678901234567890", 86400, {
-    from: deployer.address,
-  });
+  const Campaigns = await ethers.getContractFactory("Campaigns");
+  const campaigns = await Campaigns.deploy(verifier.address);
 
-  await crowdZero.waitForDeployment();
 
-  console.log("CrowdZero deployed to:", crowdZero.getAddress);
+  console.log("Campaigns deployed to:", campaigns.getAddress);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
