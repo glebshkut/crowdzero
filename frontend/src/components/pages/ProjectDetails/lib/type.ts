@@ -10,3 +10,9 @@ export interface ProjectInterface {
   creator_address: Address;
   end_date: Date;
 }
+
+export enum ProjectStatus {
+  Active = "active",
+  PaidOut = "paidOut",
+  Reached = "reached",
+}

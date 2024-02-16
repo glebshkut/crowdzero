@@ -7,6 +7,7 @@ import { ProjectInterface } from "../lib/type";
 import Drawer from "./Drawer";
 import ProcessingModal from "./ProcessingModal";
 import { ModalStage } from "../lib/modal";
+import { projects } from "../lib/projects";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
@@ -17,21 +18,14 @@ export default function ProjectDetails() {
   const { projectId } = useParams<{ projectId: string }>();
 
   useEffect(() => {
-    setProject({
-      id: projectId as string,
-      name: "Project Name",
-      description: "Project description Project description Project description, because Project description, because Project description Project description Project description Project description, because Project description, because Project description",
-      image_url: "https://via.placeholder.com/300",
-      raised: 750,
-      goal: 1000,
-      creator_address: "0x123",
-      end_date: new Date()
-    });
+    setProject(projects.find(project => project.id === projectId) || null);
   }, [projectId]);
 
   if (!project) {
     return <div>Loading...</div>;
   }
+
+  const isInactive = project.raised === project.goal;
 
   const handleInputChange = (e: { target: { value: string; }; }) => {
     setAmount(Number(e.target.value));
@@ -90,7 +84,9 @@ export default function ProjectDetails() {
                 {description}
               </span>
             </div>
-            {isVerified ? (
+            {isInactive ? (
+              <></>
+            ) : isVerified ? (
               <label htmlFor="my-drawer" className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit drawer-button">
                 Fund with <img src="/assets/crowdzero-logo.png" className="relative bottom-1" width={143} height={31} alt="crowdzero logo" />
               </label>
