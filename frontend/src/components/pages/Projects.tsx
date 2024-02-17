@@ -2,11 +2,18 @@ import { useEffect, useState } from "react"
 import { ProjectInterface } from "./ProjectDetails/lib/type"
 import ProjectItem from "../shared/ProjectItem";
 import { projects as allprojects } from "./ProjectDetails/lib/projects";
+import { campaigns } from "@/contracts";
 
 export default function AllProjects() {
   const [projects, setProjects] = useState<ProjectInterface[]>([]);
 
   useEffect(() => {
+    async function readData() {
+      const data = await campaigns.getDeployedCampaigns();
+      console.log(data);
+    }
+
+    readData();
     setProjects(allprojects);
   }, []);
 

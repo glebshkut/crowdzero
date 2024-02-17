@@ -5,16 +5,16 @@ async function main() {
 
   const Verifier = await ethers.getContractFactory("Verifier");
   const verifier = await Verifier.deploy();
-  console.log(`Verifier address: ${verifier.address}`)
+  console.log(`Verifier address: ${verifier.target}`)
 
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await ethers.provider.getBalance(deployer.address)).toString());
 
   const Campaigns = await ethers.getContractFactory("Campaigns");
-  const campaigns = await Campaigns.deploy(verifier.address);
+  const campaigns = await Campaigns.deploy(verifier.target);
 
 
-  console.log("Campaigns deployed to:", campaigns.getAddress);
+  console.log("Campaigns deployed to:", await campaigns.getAddress());
 }
 
 main().catch((error) => {
