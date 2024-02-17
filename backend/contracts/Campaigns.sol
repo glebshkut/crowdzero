@@ -61,7 +61,7 @@ contract Campaigns {
         string memory _name,
         string memory _image,
         string memory _description
-    ) public {
+    ) public returns (Campaign memory){
         Campaign memory newCampaign = Campaign({
             campaignId: id,
             creator: msg.sender,
@@ -77,6 +77,7 @@ contract Campaigns {
         campaigns.push(newCampaign);
         emit CampaignCreated(msg.sender, _goal, id);
         id++;
+        return newCampaign;
     }
 
     // Function to donate to a campaign

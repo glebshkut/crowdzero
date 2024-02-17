@@ -20,6 +20,7 @@ export default {
         action: "#FF852C",
         "gradient-button": "#222222",
         blue: "#1790FF",
+        gray: "#425C6F",
       },
       backgroundColor: {
         background: "#222222",

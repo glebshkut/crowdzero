@@ -88,7 +88,7 @@ export default function ProjectDetails() {
               <></>
             ) : isVerified ? (
               <label htmlFor="my-drawer" className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit drawer-button">
-                Fund with <img src="/assets/crowdzero-logo.png" className="relative bottom-1" width={143} height={31} alt="crowdzero logo" />
+                  Fund with <img src="/assets/crowdzero-logo.png" width={143} height={31} alt="crowdzero logo" />
               </label>
             ) : (<div className="flex items-center gap-6">
               <button className="btn btn-primary" onClick={() => {

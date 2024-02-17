@@ -118,7 +118,60 @@ export const campaignsABI = [
       }
     ],
     "name": "createCampaign",
-    "outputs": [],
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "campaignId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "goal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "raised",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "complete",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Campaigns.Campaign",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -300,4 +353,4 @@ export const campaignsABI = [
     "stateMutability": "payable",
     "type": "receive"
   }
-];
+]
