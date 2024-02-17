@@ -1,8 +1,6 @@
-import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-ethers";
-import { NetworksUserConfig } from "hardhat/types/config";
-import { ethers } from "ethers";
 import "@nomiclabs/hardhat-etherscan";
+import { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -15,33 +13,11 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  networks: getNetworks(),
-  etherscan: {
-    apiKey: {
-      "scroll-sepolia": "3JSKI3SBEJG9RZVZUNAS6XC471MV2BFZ8R",
-    },
-    customChains: [
-      {
-        network: "scroll-sepolia",
-        chainId: 534351,
-        urls: {
-          apiURL: "https://api-sepolia.scrollscan.com/api",
-          browserURL: "https://sepolia.scrollscan.com/",
-        },
-      },
-    ],
-  },
+  networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545",
+    }
+  }
 };
-
-function getNetworks(): NetworksUserConfig {
-  const accounts = [`0x${process.env.ETHEREUM_PRIVATE_KEY}`];
-  return {
-    "scroll-sepolia": {
-      url: "https://sepolia-rpc.scroll.io/",
-      accounts,
-    },
-    // Add other networks if needed
-  };
-}
 
 export default config;

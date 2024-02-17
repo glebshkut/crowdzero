@@ -1,5 +1,5 @@
 import { WagmiConfig, createConfig } from "wagmi";
-import { sepolia } from "wagmi/chains";
+import { localhost } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
@@ -8,7 +8,7 @@ const config = createConfig(
     // Required API Keys
     alchemyId: import.meta.env.VITE_ALCHEMY_ID, // or infuraId
     walletConnectProjectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-    chains: [sepolia],
+    chains: [localhost],
 
     // Required
     appName: "crowdzero",

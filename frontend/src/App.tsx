@@ -5,6 +5,7 @@ import Projects from "@/components/pages/Projects";
 import { Routes } from "@/constants/routes";
 import { ProjectDetails } from "@/components/pages/ProjectDetails";
 import FundedProjects from "./components/pages/FundedProjects";
+import CreateProject from "./components/pages/CreateProject";
 
 export default function Index() {
 
@@ -28,7 +29,7 @@ export default function Index() {
         },
         {
           path: Routes.CREATE_PROJECT,
-          element: <div>Create Project</div>
+          element: <CreateProject />
         },
         {
           path: Routes.MY_PROJECTS,
