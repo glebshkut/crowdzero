@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-
+import { ethers } from "ethers";
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
