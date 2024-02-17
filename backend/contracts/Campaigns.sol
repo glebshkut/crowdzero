@@ -84,6 +84,10 @@ contract Campaigns {
         require(msg.value > 0, "Invalid donation amount");
     }
 
+    function getDeployedCampaigns() public view returns (Campaign[] memory) {
+        return campaigns;
+    }
+
     function sendProof(
         Proof memory proof,
         uint[1] memory input,
