@@ -1,0 +1,9 @@
+def main(field donationAmount){
+    field donation = donationAmount;
+
+    // Assert that the donation amount is positive
+    assert(donation >   0);
+
+    // Return the donation amount as a proof of donation
+    return;
+}
