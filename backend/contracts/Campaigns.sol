@@ -27,8 +27,6 @@ pragma solidity ^0.8.9;
 
         IZokratesVerifier zokratesVerifier;
 
-        
-
     struct Campaign {
         uint256 campaignId;
         address creator;
@@ -81,6 +79,7 @@ pragma solidity ^0.8.9;
         // ZK verification
         require(zokratesVerifier.verifyTx(proof, input) == true, "Invalid proof");
         require(_id < campaigns.length, "Invalid campaign ID");
+        require(!checkComplete(_id), "campaign ended");
         // Your custom logic
         Campaign storage campaign = campaigns[_id];
         campaign.raised += amount;
