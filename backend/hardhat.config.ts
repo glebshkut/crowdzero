@@ -11,8 +11,22 @@ const config: HardhatUserConfig = {
         version: "0.8.20",
       },
     ],
+  },
+  etherscan: {
+    apiKey: {
+      "scroll-sepolia": process.env.SCROLL_SEPOLIA_API_KEY!,
+    },
+    customChains: [
+      {
+        network: "scroll-sepolia",
+        chainId: 534351,
+        urls: {
+          apiURL: "https://api-sepolia.scrollscan.com/api",
+          browserURL: "https://sepolia.scrollscan.com/"
+        }
+      }
+    ]
   }
-
 };
 
 export default config;
