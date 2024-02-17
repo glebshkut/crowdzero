@@ -70,8 +70,8 @@ pragma solidity ^0.8.9;
     }
 
     // Function to donate to a campaign
-    function donate(uint256 amount) external payable {
-        require(amount > 0, "Invalid donation amount");
+    function donate() external payable {
+        require(msg.value > 0, "Invalid donation amount");
 
     }
 
