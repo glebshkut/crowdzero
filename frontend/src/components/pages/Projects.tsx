@@ -22,15 +22,6 @@ export default function AllProjects() {
       <h3 className="text-3xl font-bold">
         All Projects
       </h3>
-      <div className="flex justify-between items-center">
-        <span className="text-2xl">
-          [Group Name]
-        </span>
-        <div className="flex gap-2">
-          <span className="text-blue">Funding Members [0000]</span>
-          <span className="text-secondary">Total Members [0000]</span>
-        </div>
-      </div>
       <div className="grid grid-cols-3 gap-6">
         {
           projects.map(project => (

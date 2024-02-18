@@ -1,14 +1,14 @@
-import CommunityInfo from "@/components/shared/CommunityInfo";
 import RaisedBar from "@/components/shared/RaisedBar";
 import stylePrice from "@/components/shared/calculations/stylePrice";
+import GetProof from "@/components/zkbutton/getProof";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { ModalStage } from "../lib/modal";
+import { projects } from "../lib/projects";
 import { ProjectInterface } from "../lib/type";
 import Drawer from "./Drawer";
 import ProcessingModal from "./ProcessingModal";
-import { ModalStage } from "../lib/modal";
-import { projects } from "../lib/projects";
-import GetProof from "@/components/zkbutton/getProof";
+import { campaigns } from "@/contracts";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
@@ -32,16 +32,28 @@ export default function ProjectDetails() {
     setAmount(Number(e.target.value));
   }
 
-  const handleProcessing = () => {
+  const handleProcessing = async () => {
     setModalStage(ModalStage.Approve);
     const modalElement = document.getElementById('my_modal_1') as HTMLDialogElement;
     modalElement.showModal();
-    setTimeout(() => {
-      setModalStage(ModalStage.Processing);
-      setTimeout(() => {
-        setModalStage(ModalStage.Complete);
-      }, 2000);
-    }, 2000);
+    setModalStage(ModalStage.Processing);
+    await donate();
+    setModalStage(ModalStage.Complete);
+  }
+
+  async function donate() {
+    setIsButtonLoading(true);
+    try {
+      const tx = await campaigns.donate()
+
+      // Wait for the transaction to be mined
+      await tx.wait();
+
+      console.log("Doanted successfully!");
+    } catch (error) {
+      console.error("Error occured while donating:", error);
+    }
+    setIsButtonLoading(false);
   }
 
   const {
@@ -64,7 +76,7 @@ export default function ProjectDetails() {
         <div className="flex gap-12 mt-7">
           <div className="flex flex-col gap-5 w-1/3 max-w-[300px]">
             <img src={image_url} alt="Fundraiser Image" />
-            <CommunityInfo />
+            {/* <CommunityInfo /> */}
           </div>
           <div className="flex flex-col gap-6 w-1/3">
             <div>
