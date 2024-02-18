@@ -1,22 +1,24 @@
 import "@nomicfoundation/hardhat-ethers";
-import "@nomiclabs/hardhat-etherscan";
+import "@nomicfoundation/hardhat-verify";
+import 'dotenv/config';
 import { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.19",
+        version: "0.8.9",
       },
       {
-        version: "0.8.20",
+        version: "0.8.0",
       },
     ],
   },
   networks: {
-    localhost: {
-      url: "http://127.0.0.1:8545",
-    }
+    sepolia: {
+      url: process.env.SCROOL_TESNET_URL,
+      accounts:process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
   }
 };
 
