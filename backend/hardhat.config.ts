@@ -16,7 +16,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     sepolia: {
-      url: process.env.SCROOL_TESNET_URL,
+      url: process.env.SCROLL_TESNET_URL,
       accounts:process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   }

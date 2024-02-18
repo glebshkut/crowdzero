@@ -2,6 +2,10 @@ import { campaigns } from "@/contracts";
 import { useState } from "react";
 import stylePrice from "../shared/calculations/stylePrice";
 import { PlusSquare } from "@phosphor-icons/react";
+import { campaignsABI } from "@/contracts/abi/campaigns";
+import { useAccount } from "wagmi";
+import { ProjectInterface } from "./ProjectDetails/lib/type";
+import { scrollTestnet } from "viem/chains";
 
 export default function CreateProject() {
   const [goal, setGoal] = useState<string>("");
@@ -9,22 +13,26 @@ export default function CreateProject() {
   const [description, setDescription] = useState<string>("");
   const [image_url, setImageUrl] = useState<string>("");
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const account = useAccount();
+
+  async function readData() {
+    const client = await account.connector?.getWalletClient();
+    const data = await client!.writeContract({
+      address: campaigns.address as `0x${string}`,
+      abi: campaignsABI,
+      functionName: 'createCampaign',
+      args: [goal, name, image_url, description],
+      chain: scrollTestnet,
+    }) as unknown as ProjectInterface[];
+    console.log("🚀 ~ readData ~ data:", data)
+  }
 
   async function createNewCampaign() {
     if (!goal || !name || !description || !image_url) return;
 
     setIsButtonLoading(true);
     try {
-      const tx = await campaigns.createCampaign(
-        goal,
-        name,
-        image_url,
-        description,
-      );
-
-      // Wait for the transaction to be mined
-      const res = await tx.wait();
-      console.log("🚀 ~ createNewCampaign ~ res:", res)
+      await readData();
 
       console.log("Campaign created successfully!");
     } catch (error) {
