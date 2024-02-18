@@ -1,6 +1,5 @@
 import RaisedBar from "@/components/shared/RaisedBar";
 import stylePrice from "@/components/shared/calculations/stylePrice";
-import GetProof from "@/components/zkbutton/getProof";
 import { campaigns } from "@/contracts";
 import { campaignsABI } from "@/contracts/abi/campaigns";
 import { ethers } from "ethers";
@@ -115,7 +114,7 @@ export default function ProjectDetails() {
                 {description}
               </span>
             </div>
-            <GetProof program="yourProgram" proofArguments={["argument1", "argument2"]} />
+            {/* <GetProof program="yourProgram" proofArguments={["argument1", "argument2"]} /> */}
 
             {isInactive ? (
               <></>

@@ -8,5 +8,5 @@ const signer = provider.getSigner();
 export const verifier = new ethers.Contract(verifierAddress, verifierABI, signer);
 
 
-const campaignsAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
+const campaignsAddress = '0x59195B68f74d75C4878a76bDfeA92179Ac628B66';
 export const campaigns = new ethers.Contract(campaignsAddress, campaignsABI, signer);

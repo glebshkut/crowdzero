@@ -14,10 +14,16 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
-    localhost: {
-      url: "http://127.0.0.1:8545",
-    }
-  }
+    hardhat: {
+      accounts: [
+        {
+          privateKey: "0x1234567890123456789012345678901234567890123456789012345678901234",
+          balance: '10000000000000000000000'
+        }
+      ],
+      chainId: 1337,
+    },
+  },
 };
 
 export default config;
