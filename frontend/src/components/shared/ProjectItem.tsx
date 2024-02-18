@@ -14,8 +14,6 @@ export default function ProjectItem({
 }) {
   const {
     name,
-    // description,
-    // image_url,
     raised,
     goal,
     // creator_address,
@@ -24,7 +22,7 @@ export default function ProjectItem({
 
 
   const renderItem = () => {
-    const reached = Math.floor((raised / goal) * 100);
+    const reached = Math.floor((Number(raised) / Number(goal)) * 100);
     const isReached = reached === 100;
     return (
       <div
@@ -50,19 +48,19 @@ export default function ProjectItem({
         <div className="flex items-center gap-2">
           <img src="/assets/eth-token.png" alt="eth token icon" width={32} />
           <span className="text-info text-3xl font-bold">
-            {raised.toFixed(3)}
+            {Number(raised)}
           </span>
         </div>
         <span className="text-primary text-sm">
-          Target: {stylePrice(goal, false, true)} ({goal} Ξ)
+          Target: {stylePrice(Number(goal), false, true)} ({Number(goal)} Ξ)
         </span>
-        <RaisedBar raised={raised} goal={goal} noInfo />
+        <RaisedBar raised={Number(raised)} goal={Number(goal)} noInfo />
       </div>
     )
   }
 
   return (
-    <Link to={`/projects/${project.id}`}>
+    <Link to={`/projects/${project.campaignId}`}>
       {renderItem()}
     </Link>
   )

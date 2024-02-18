@@ -10,8 +10,8 @@ export default function Drawer({
   amount: number;
   handleInputChange: (e: { target: { value: string; }; }) => void;
   project: {
-    raised: number;
-    goal: number;
+    raised: bigint;
+    goal: bigint;
   };
     handleSubmit: () => void;
 }) {
@@ -43,9 +43,9 @@ export default function Drawer({
             <div>
               <div className="flex justify-between">
                 <span className="text-secondary">$10</span>
-                <span className="text-secondary">{stylePrice(goal - raised, false, true)}</span>
+                <span className="text-secondary">{stylePrice(Number(goal) - Number(raised), false, true)}</span>
               </div>
-              <input type="range" min={0} max={`${2528.44 * (goal - raised)}`} value={amount} onChange={handleInputChange} className="range range-primary range-sm bg-placeholder-background" />
+              <input type="range" min={0} max={`${2528.44 * (Number(goal) - Number(raised))}`} value={amount} onChange={handleInputChange} className="range range-primary range-sm bg-placeholder-background" />
               <span className="text-secondary">Amount in USD</span>
               <input type="text" value={amount} onChange={handleInputChange} className="input input-bordered bg-secondary-background rounded-lg mt-1 w-4/5" />
             </div>

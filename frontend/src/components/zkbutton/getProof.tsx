@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import crypto from 'crypto';
+import React, { useEffect, useState } from 'react';
 import { Proof, initialize } from 'zokrates-js';
 
 interface ZokratesProps {

@@ -1,21 +1,30 @@
-import { useEffect, useState } from "react"
-import { ProjectInterface } from "./ProjectDetails/lib/type"
-import ProjectItem from "../shared/ProjectItem";
-import { projects as allprojects } from "./ProjectDetails/lib/projects";
 import { campaigns } from "@/contracts";
+import { useEffect, useState } from "react";
+import ProjectItem from "../shared/ProjectItem";
+import { ProjectInterface } from "./ProjectDetails/lib/type";
+import { Campaign } from "@/contracts/types/campaigns";
+import { useAccount } from "wagmi";
+import { publicActions } from "viem";
+import { campaignsABI } from "@/contracts/abi/campaigns";
 
 export default function AllProjects() {
   const [projects, setProjects] = useState<ProjectInterface[]>([]);
+  const account = useAccount();
 
   useEffect(() => {
     async function readData() {
-      const data = await campaigns.getDeployedCampaigns();
-      console.log(data);
+      const client = await account.connector?.getWalletClient();
+      const data = await publicActions(client!).readContract({
+        address: campaigns.address as `0x${string}`,
+        abi: campaignsABI,
+        functionName: 'getDeployedCampaigns',
+      }) as Campaign[];
+      console.log("🚀 ~ readData ~ data:", data)
+      setProjects(data);
     }
 
     readData();
-    setProjects(allprojects);
-  }, []);
+  }, [account.connector]);
 
   return (
     <div className="h-full flex flex-col gap-9 text-info py-16 px-40">
@@ -25,7 +34,7 @@ export default function AllProjects() {
       <div className="grid grid-cols-3 gap-6">
         {
           projects.map(project => (
-            <div key={project.id}>
+            <div key={project.campaignId}>
               <ProjectItem project={project} />
             </div>
           ))

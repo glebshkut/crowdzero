@@ -1,3 +1,5 @@
+import { Address } from "viem";
+
 export interface CampaignCreatedEvent {
   creator: string;
   goal: number;
@@ -5,15 +7,15 @@ export interface CampaignCreatedEvent {
 }
 
 export interface Campaign {
-  campaignId: number;
-  creator: string;
-  goal: number;
-  raised: number;
+  campaignId: bigint;
+  creator: Address;
+  goal: bigint;
+  raised: bigint;
   name: string;
   image: string;
   description: string;
   complete: boolean;
-  deadline: number;
+  deadline: bigint;
 }
 
 export interface Proof {

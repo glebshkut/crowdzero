@@ -1,14 +1,6 @@
-import { Address } from "viem";
+import { Campaign } from "@/contracts/types/campaigns";
 
-export interface ProjectInterface {
-  id: string;
-  name: string;
-  description: string;
-  image_url: string;
-  raised: number; // (default 0)
-  goal: number;
-  creator_address: Address;
-  end_date: Date;
+export interface ProjectInterface extends Campaign {
 }
 
 export enum ProjectStatus {

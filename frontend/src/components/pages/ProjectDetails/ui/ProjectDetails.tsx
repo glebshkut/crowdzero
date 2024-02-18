@@ -1,14 +1,17 @@
 import RaisedBar from "@/components/shared/RaisedBar";
 import stylePrice from "@/components/shared/calculations/stylePrice";
 import GetProof from "@/components/zkbutton/getProof";
+import { campaigns } from "@/contracts";
+import { campaignsABI } from "@/contracts/abi/campaigns";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { publicActions } from "viem";
+import { useAccount } from "wagmi";
 import { ModalStage } from "../lib/modal";
-import { projects } from "../lib/projects";
 import { ProjectInterface } from "../lib/type";
 import Drawer from "./Drawer";
 import ProcessingModal from "./ProcessingModal";
-import { campaigns } from "@/contracts";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
@@ -17,10 +20,22 @@ export default function ProjectDetails() {
   const [modalStage, setModalStage] = useState<ModalStage | null>(null);
   const [amount, setAmount] = useState<number>(10);
   const { projectId } = useParams<{ projectId: string }>();
+  const account = useAccount();
 
   useEffect(() => {
-    setProject(projects.find(project => project.id === projectId) || null);
-  }, [projectId]);
+    async function readData() {
+      const client = await account.connector?.getWalletClient();
+      const data = await publicActions(client!).readContract({
+        address: campaigns.address as `0x${string}`,
+        abi: campaignsABI,
+        functionName: 'getDeployedCampaigns',
+      }) as ProjectInterface[];
+      console.log("🚀 ~ readData ~ data:", data)
+      setProject(data.find((project) => Number(project.campaignId).toString() == projectId) as ProjectInterface);
+    }
+
+    readData();
+  }, [account.connector, projectId]);
 
   if (!project) {
     return <div>Loading...</div>;
@@ -44,10 +59,13 @@ export default function ProjectDetails() {
   async function donate() {
     setIsButtonLoading(true);
     try {
-      const tx = await campaigns.donate()
+      const tx = await campaigns.donate({
+        value: ethers.utils.parseEther((amount / 2528.44 * 1.01).toString())
+      })
 
       // Wait for the transaction to be mined
-      await tx.wait();
+      const res = await tx.wait();
+      console.log("🚀 ~ donate ~ res:", res)
 
       console.log("Doanted successfully!");
     } catch (error) {
@@ -59,7 +77,7 @@ export default function ProjectDetails() {
   const {
     name,
     description,
-    image_url,
+    image: image_url,
     raised,
     goal,
     // creator_address,
@@ -82,11 +100,11 @@ export default function ProjectDetails() {
             <div>
               <span className="text-md font-bold text-action">Target</span>
               <h3 className="text-5xl bg-primary-gradient-reverted text-transparent bg-clip-text font-black">
-                {goal} ETH
+                {Number(goal)} ETH
               </h3>
               <span className="text-primary text-lg">
                 {/* move logic to model folder */}
-                {stylePrice(goal)} USD
+                {stylePrice(Number(goal))} USD
               </span>
             </div>
             <div>
@@ -109,22 +127,21 @@ export default function ProjectDetails() {
                 <div className="flex items-center gap-6">
                   <button className="btn btn-primary" onClick={() => {
                     setIsButtonLoading(true)
-                    setTimeout(() => {
+                      // tx(writeContracts.Campaigns.sendProof({ value: ethers.utils.parseEther("0.5") }));
                       setIsVerified(true)
                       setIsButtonLoading(false)
-                    }, 2000)
-                  }}>
-                    {isButtonLoading && <span className="loading loading-spinner" />}
-                    Verify and Join!
-                  </button>
-                  <span className="text-primary text-sm">
-                    Join this community quick and easy and anonymously!
-                  </span>
-                </div>
+                    }}>
+                      {isButtonLoading && <span className="loading loading-spinner" />}
+                      Verify and Join!
+                    </button>
+                    <span className="text-primary text-sm">
+                      Join this community quick and easy and anonymously!
+                    </span>
+                  </div>
             )}
             <div className="bg-secondary-background rounded-2xl p-4 gap-2 flex flex-col">
               <span className="font-bold">Fundrasiing Status</span>
-              <RaisedBar raised={raised} goal={goal} />
+              <RaisedBar raised={Number(raised)} goal={Number(goal)} />
             </div>
           </div>
         </div>
