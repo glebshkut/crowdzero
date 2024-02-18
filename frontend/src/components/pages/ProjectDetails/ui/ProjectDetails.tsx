@@ -8,6 +8,7 @@ import Drawer from "./Drawer";
 import ProcessingModal from "./ProcessingModal";
 import { ModalStage } from "../lib/modal";
 import { projects } from "../lib/projects";
+import GetProof from "@/components/zkbutton/getProof";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<ProjectInterface | null>(null);
@@ -84,27 +85,30 @@ export default function ProjectDetails() {
                 {description}
               </span>
             </div>
+            <GetProof program="yourProgram" proofArguments={["argument1", "argument2"]} />
+
             {isInactive ? (
               <></>
             ) : isVerified ? (
               <label htmlFor="my-drawer" className="btn bg-primary-gradient text-gradient-button font-bold rounded-lg w-fit drawer-button">
                   Fund with <img src="/assets/crowdzero-logo.png" width={143} height={31} alt="crowdzero logo" />
               </label>
-            ) : (<div className="flex items-center gap-6">
-              <button className="btn btn-primary" onClick={() => {
-                setIsButtonLoading(true)
-                setTimeout(() => {
-                  setIsVerified(true)
-                  setIsButtonLoading(false)
-                }, 2000)
-              }}>
-                {isButtonLoading && <span className="loading loading-spinner" />}
-                Verify and Join!
-              </button>
-              <span className="text-primary text-sm">
-                Join this community quick and easy and anonymously!
-              </span>
-            </div>
+              ) : (
+                <div className="flex items-center gap-6">
+                  <button className="btn btn-primary" onClick={() => {
+                    setIsButtonLoading(true)
+                    setTimeout(() => {
+                      setIsVerified(true)
+                      setIsButtonLoading(false)
+                    }, 2000)
+                  }}>
+                    {isButtonLoading && <span className="loading loading-spinner" />}
+                    Verify and Join!
+                  </button>
+                  <span className="text-primary text-sm">
+                    Join this community quick and easy and anonymously!
+                  </span>
+                </div>
             )}
             <div className="bg-secondary-background rounded-2xl p-4 gap-2 flex flex-col">
               <span className="font-bold">Fundrasiing Status</span>
