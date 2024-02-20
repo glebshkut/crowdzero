@@ -5,7 +5,7 @@ import { PlusSquare } from "@phosphor-icons/react";
 import { campaignsABI } from "@/contracts/abi/campaigns";
 import { useAccount } from "wagmi";
 import { ProjectInterface } from "./ProjectDetails/lib/type";
-import { scrollTestnet } from "viem/chains";
+import { scrollSepolia } from "viem/chains";
 
 export default function CreateProject() {
   const [goal, setGoal] = useState<string>("");
@@ -22,7 +22,7 @@ export default function CreateProject() {
       abi: campaignsABI,
       functionName: 'createCampaign',
       args: [goal, name, image_url, description],
-      chain: scrollTestnet,
+      chain: scrollSepolia,
     }) as unknown as ProjectInterface[];
     console.log("🚀 ~ readData ~ data:", data)
   }
